@@ -1,8 +1,9 @@
+require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
 //const { prefix, token } = require('./config.json');
-
 const client = new Discord.Client();
+
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -11,6 +12,8 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
+
+const prefix = process.env.PREFIX;
 
 client.once('ready', () => {
 	console.log('Ready!');
@@ -47,4 +50,4 @@ client.on('message', message => {
 	console.log(message.content);
 });
 
-client.login(process.env.DIS_TOKEN);
+client.login(process.env.CLIENT_TOKEN);
