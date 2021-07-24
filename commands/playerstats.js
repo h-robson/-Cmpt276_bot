@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'playerstats',
-	aliases: ['icon', 'pfp'],
+	aliases: ['ps', 'pstats'],
 	description: 'Returns player stats',
     args: true,
     usage: '<playerhandle>',

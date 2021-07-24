@@ -3,18 +3,26 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.x",
+    "npm": "*"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h-robson/-Cmpt276_bot"
+  },
+  "keywords": [
+    "heroku",
+    "discord.js"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0"
-  },
-  "engines": {
-    "node": "14.17.3",
-    "npm": "*"
   }
 }
