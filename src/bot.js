@@ -258,14 +258,14 @@ client.on('message', (message) => {
                                 i++;
                             }
                         }
-                        message.channel.send('Team 1 is:\n'
+                        message.channel.send('**Team 1** is:\n'
                             + team1[0] + '\n'
                             + team1[1] + '\n'
                             + team1[2] + '\n'
                             + team1[3] + '\n'
                             + team1[4] + '\n');
 
-                        message.channel.send('Team 2 is:\n'
+                        message.channel.send('**Team 2** is:\n'
                             + team2[0] + '\n'
                             + team2[1] + '\n'
                             + team2[2] + '\n'
