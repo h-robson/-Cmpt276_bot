@@ -53,7 +53,7 @@ client.on('message', (message) => {
             message.channel.send('Player has not played ranked.');
         }
 
-        message.channel.send('More info can be found at: https://groupproject13.herokuapp.com/summ?name=' + name);
+        message.channel.send('More info can be found at: https://groupproject13.herokuapp.com/pie?name=' + name);
 
     }
 
