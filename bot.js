@@ -168,7 +168,7 @@ client.on('message', (message) => {
 
         }
 
-        if (CMD_NAME === 'lobby') {
+        else if (CMD_NAME === 'lobby') {
             message.channel.send('Creating lobby\n!join {Summoner Name} to join in **OR** !end to stop the lobby');
             playerCount = 0;
         }
