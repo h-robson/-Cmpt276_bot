@@ -173,7 +173,7 @@ client.on('message', (message) => {
             playerCount = 0;
         }
 
-        if (CMD_NAME === 'endlobby') {
+        else if (CMD_NAME === 'endlobby') {
             playerCount = -1;
             lobby = [];
             team1 = [];
@@ -183,7 +183,7 @@ client.on('message', (message) => {
             listOfNames = [];
             message.channel.send('Lobby has ended.');
         }
-        if (CMD_NAME === 'join') {
+        else if (CMD_NAME === 'join') {
             if (playerCount === -1) {
                 message.channel.send("lobby is not created yet. Do !lobby to create a new lobby");
                 return;
@@ -284,7 +284,13 @@ client.on('message', (message) => {
 
                 }
             }
+        } else if(CMD_NAME === 'help'){
+            message.channel.send("!stats {Summoner Name} - for overall stats for a summoner \n!lobby - to create a custom game lobby where teams would be decided on individuals ranks \n!join {Summoner Name} - to join into the lobby to partake in custom game");
         }
+        else{
+            message.channel.send("The command does not exist. use !help");
+        }
+
     }
 });
 
