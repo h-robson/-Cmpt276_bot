@@ -53,7 +53,7 @@ client.on('message', (message) => {
             message.channel.send('Player has not played ranked.');
         }
 
-        message.channel.send('More info can be found at: https://groupproject13.herokuapp.com/pie?name=' + name);
+        message.channel.send('More info can be found at: https://groupproject13.herokuapp.com/summ?name=' + name);
 
     }
 
@@ -203,6 +203,85 @@ client.on('message', (message) => {
                 } else {
                     getRating(summonerName);
 
+                    if (playerCount === 10) {
+                        message.channel.send("lobby is full");
+                        lobby = lobby.sort(sortFunction);
+                        let i = 0;
+                        let k = 9;
+                        let ar = []
+                        for (let i = 0; i < 10; i++) {
+                            ar.push(lobby[i][0]);
+                        }
+                        let avg = ar.reduce((a, b) => a + b) / ar.length;
+                        let team1Avg = 0;
+                        let team2Avg = 0;
+
+                        while (i - k < 0) {
+                            //  console.log(i);
+                            if (team1Rating.length > 0) {
+                                team1Avg = team1Rating.reduce((a, b) => a + b) / team1Rating.length;
+                                //console.log('team1 average  is: ' + team1Avg);
+                                //console.log('average is: ' + avg);
+                                if (team1Rating.length < 5) {
+                                    if (team1Avg < avg) {
+                                        team1.push(lobby[i][1]);
+                                        team1Rating.push(lobby[i][0]);
+                                        i++;
+                                    } else {
+                                        team1.push(lobby[k][1]);
+                                        team1Rating.push(lobby[k][0]);
+                                        k--;
+                                    }
+                                }
+                            } else {
+                                team1.push(lobby[i][1]);
+                                team1Rating.push(lobby[i][0]);
+                                i++;
+                            }
+
+                            if (team2Rating.length > 0) {
+                                team2Avg = team2Rating.reduce((a, b) => a + b) / team2Rating.length;
+                                if (team2Rating.length < 5) {
+                                    if (team2Avg < avg) {
+                                        team2.push(lobby[i][1]);
+                                        team2Rating.push(lobby[i][0]);
+                                        i++;
+                                    } else {
+                                        team2.push(lobby[k][1]);
+                                        team2Rating.push(lobby[k][0]);
+                                        k--;
+                                    }
+                                }
+                            } else {
+                                team2.push(lobby[i][1]);
+                                team2Rating.push(lobby[i][0]);
+                                i++;
+                            }
+                        }
+                        message.channel.send('**Team 1** is:\n'
+                            + team1[0] + '\n'
+                            + team1[1] + '\n'
+                            + team1[2] + '\n'
+                            + team1[3] + '\n'
+                            + team1[4] + '\n');
+
+                        message.channel.send('**Team 2** is:\n'
+                            + team2[0] + '\n'
+                            + team2[1] + '\n'
+                            + team2[2] + '\n'
+                            + team2[3] + '\n'
+                            + team2[4] + '\n');
+
+                        playerCount = -1;
+                        lobby = [];
+                        team1 = [];
+                        team1Rating = [];
+                        team2 = [];
+                        team2Rating = [];
+                        listOfNames = [];
+                        return;
+                    }
+
                 }
             }
         } else if(CMD_NAME === 'help'){
@@ -210,86 +289,6 @@ client.on('message', (message) => {
         }
         else{
             message.channel.send("The command does not exist. use !help");
-        }
-
-
-        if (playerCount === 10) {
-            message.channel.send("lobby is full");
-            lobby = lobby.sort(sortFunction);
-            let i = 0;
-            let k = 9;
-            let ar = []
-            for (let i = 0; i < 10; i++) {
-                ar.push(lobby[i][0]);
-            }
-            let avg = ar.reduce((a, b) => a + b) / ar.length;
-            let team1Avg = 0;
-            let team2Avg = 0;
-
-            while (i - k < 0) {
-                //  console.log(i);
-                if (team1Rating.length > 0) {
-                    team1Avg = team1Rating.reduce((a, b) => a + b) / team1Rating.length;
-                    //console.log('team1 average  is: ' + team1Avg);
-                    //console.log('average is: ' + avg);
-                    if (team1Rating.length < 5) {
-                        if (team1Avg < avg) {
-                            team1.push(lobby[i][1]);
-                            team1Rating.push(lobby[i][0]);
-                            i++;
-                        } else {
-                            team1.push(lobby[k][1]);
-                            team1Rating.push(lobby[k][0]);
-                            k--;
-                        }
-                    }
-                } else {
-                    team1.push(lobby[i][1]);
-                    team1Rating.push(lobby[i][0]);
-                    i++;
-                }
-
-                if (team2Rating.length > 0) {
-                    team2Avg = team2Rating.reduce((a, b) => a + b) / team2Rating.length;
-                    if (team2Rating.length < 5) {
-                        if (team2Avg < avg) {
-                            team2.push(lobby[i][1]);
-                            team2Rating.push(lobby[i][0]);
-                            i++;
-                        } else {
-                            team2.push(lobby[k][1]);
-                            team2Rating.push(lobby[k][0]);
-                            k--;
-                        }
-                    }
-                } else {
-                    team2.push(lobby[i][1]);
-                    team2Rating.push(lobby[i][0]);
-                    i++;
-                }
-            }
-            message.channel.send('**Team 1** is:\n'
-                + team1[0] + '\n'
-                + team1[1] + '\n'
-                + team1[2] + '\n'
-                + team1[3] + '\n'
-                + team1[4] + '\n');
-
-            message.channel.send('**Team 2** is:\n'
-                + team2[0] + '\n'
-                + team2[1] + '\n'
-                + team2[2] + '\n'
-                + team2[3] + '\n'
-                + team2[4] + '\n');
-
-            playerCount = -1;
-            lobby = [];
-            team1 = [];
-            team1Rating = [];
-            team2 = [];
-            team2Rating = [];
-            listOfNames = [];
-            return;
         }
 
     }
